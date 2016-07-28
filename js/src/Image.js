@@ -23,8 +23,9 @@ var seq = 1;
 // Custom View. Renders the widget model.
 var ImageView = widgets.DOMWidgetView.extend({
     render: function() {
+        this.url = this.model.get('url');
         this.req = {
-            plotId: 'xxq',
+            plotId: 'ArchiveImage',
             Type      : 'SERVICE',
             Service   : 'TWOMASS',
             Title     : '2mass from service',
@@ -35,7 +36,7 @@ var ImageView = widgets.DOMWidgetView.extend({
             AllowImageSelection : true
         };
         this.el.id = `imageViewer-${seq++}`;
-        this.model.on('change:GridOn change:SurveyKey', this.redraw, this);
+        this.model.on('change:GridOn change:SurveyKey change:FilePath', this.redraw, this);
         this.redraw = this.redraw.bind(this);
         setTimeout(this.redraw, 0);
     },
@@ -43,10 +44,17 @@ var ImageView = widgets.DOMWidgetView.extend({
     redraw: function() {
         this.req.GridOn = this.model.get('GridOn');
         this.req.SurveyKey = this.model.get('SurveyKey');
-        firefly.showImage(this.el.id, this.req);
+        this.req.WorldPt = this.model.get('WorldPt');
+        this.req.SizeInDeg = this.model.get('SizeInDeg');
+        if (this.url.length === 0) {
+            firefly.showImage(this.el.id, this.req);
+        }
+        else {
+            firefly.showImage(this.el.id, {url: this.url, plotId: 'FitsImage'});
+        }
     }
+        
 });
-
 
 module.exports = {
     ImageModel : ImageModel,

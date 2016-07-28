@@ -11,4 +11,6 @@ class ImageViewer(widgets.DOMWidget):
     _view_module = Unicode('jupyter-firefly').tag(sync=True)
     GridOn = Bool(True).tag(sync=True)
     SurveyKey = Unicode('k').tag(sync=True)
-
+    WorldPt = Unicode('10.68479;41.26906;EQ_J2000').tag(sync=True)
+    SizeInDeg = Unicode('.12').tag(sync=True)
+    url = Unicode('').tag(sync=True)
