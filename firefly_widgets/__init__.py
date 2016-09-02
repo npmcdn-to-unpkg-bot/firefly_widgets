@@ -4,6 +4,7 @@ from .image import *
 from .table import *
 from .utils import connect
 
+
 def _jupyter_nbextension_paths():
     return [{
         'section': 'notebook',

@@ -3,6 +3,7 @@ from traitlets import Unicode, Int
 from astropy.table import Table
 from six.moves.urllib.request import urlopen
 
+
 @widgets.register('Table')
 class TableViewer(widgets.DOMWidget):
     """
@@ -16,9 +17,9 @@ class TableViewer(widgets.DOMWidget):
     radius = Int(300).tag(sync=True)
     url_or_path = Unicode().tag(sync=True)
     data_url = Unicode().tag(sync=True)
+
     def selection(self):
         """
         return the current filtered table as an astropy table
         """
         return(Table.read(urlopen(self.data_url).read().decode("utf-8"), format='ipac'))
-
